@@ -34,3 +34,11 @@ const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://<username>:<password>@cluster0.mongodb.net/bifs-ecommerce?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error(err));
