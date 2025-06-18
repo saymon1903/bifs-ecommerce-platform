@@ -35,3 +35,18 @@ async function fetchProducts() {
 }
 
 fetchProducts();
+let score = 0;
+
+function playGame() {
+    const randomFruit = Math.floor(Math.random() * 5) + 1; // 1 থেকে 5
+    score += randomFruit;
+    alert(`You got ${randomFruit} points! Total Score: ${score}`);
+
+    if (score >= 5 && score < 7) {
+        alert('You get a 5% discount!');
+    } else if (score >= 7) {
+        alert('You get a 10% discount!');
+    }
+}
+
+document.getElementById('play-game').addEventListener('click', playGame);
