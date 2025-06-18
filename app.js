@@ -50,3 +50,11 @@ function playGame() {
 }
 
 document.getElementById('play-game').addEventListener('click', playGame);
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.status(200).send(products);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+});
