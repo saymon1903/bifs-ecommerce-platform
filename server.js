@@ -42,3 +42,31 @@ mongoose.connect('mongodb+srv://<username>:<password>@cluster0.mongodb.net/bifs-
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error(err));
+const express = require('express');
+const Product = require('./database');
+const app = express();
+
+app.use(express.json());
+
+// Add a product
+app.post('/api/products', async (req, res) => {
+    try {
+        const product = new Product(req.body);
+        await product.save();
+        res.status(201).send(product);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+// Get all products
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.status(200).send(products);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
