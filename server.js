@@ -70,3 +70,14 @@ app.get('/api/products', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+const Product = require('./database');
+
+app.post('/api/products', async (req, res) => {
+    try {
+        const product = new Product(req.body);
+        await product.save();
+        res.status(201).send(product);
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+});
