@@ -58,3 +58,22 @@ app.get('/api/products', async (req, res) => {
         res.status(500).send({ error: error.message });
     }
 });
+async function fetchProducts() {
+    const response = await fetch('http://localhost:3000/api/products');
+    const products = await response.json();
+    const productsContainer = document.getElementById('products');
+
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `
+            <h2>${product.name}</h2>
+            <p>${product.description}</p>
+            <p>Price: $${product.price}</p>
+            <p>Stock: ${product.stock}</p>
+            <img src="${product.imageUrl}" alt="${product.name}" />
+        `;
+        productsContainer.appendChild(productDiv);
+    });
+}
+
+fetchProducts();
