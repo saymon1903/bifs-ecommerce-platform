@@ -17,3 +17,21 @@ document.addEventListener("DOMContentLoaded", () => {
         productsDiv.appendChild(productElement);
     });
 });
+async function fetchProducts() {
+    const response = await fetch('http://localhost:3000/api/products');
+    const products = await response.json();
+    const productsContainer = document.getElementById('products');
+
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <p>Price: $${product.price}</p>
+            <p>Stock: ${product.stock}</p>
+        `;
+        productsContainer.appendChild(productDiv);
+    });
+}
+
+fetchProducts();
