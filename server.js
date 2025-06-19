@@ -81,3 +81,27 @@ app.post('/api/products', async (req, res) => {
         res.status(400).send({ error: error.message });
     }
 });
+const database = require('./database'); // তোমার database.js ফাইলকে এখানে ইনক্লুড করো।
+
+// ডেটা লিখার জন্য ফাংশন
+function writeData() {
+    database.ref('products/').set({
+        product1: {
+            name: "Sample Product",
+            price: 199,
+            stock: 10
+        },
+        product2: {
+            name: "Another Product",
+            price: 299,
+            stock: 5
+        }
+    }).then(() => {
+        console.log('Data written successfully!');
+    }).catch((error) => {
+        console.error('Error writing data:', error);
+    });
+}
+
+// ফাংশন কল করে ডেটা লিখা
+writeData();
